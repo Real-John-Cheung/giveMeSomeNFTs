@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+# JohnC 2022
 #
+# fork from
 # rightclick.py
 # Automatically acquire whole NFT collections from OpenSea.
 #
@@ -22,6 +24,8 @@ QUIET = False
 # Directory to save downloaded collections to
 OUTPUT_DIR = "collections"
 
+NUMBER = 100
+
 # Total value of all downloaded NFTs
 usd_total = 0
 
@@ -31,7 +35,7 @@ def download_collection(collection):
 
     #\TODO create collection directory
     while True:
-        if page * PAGE_SIZE > 10000:
+        if page * PAGE_SIZE > NUMBER:
             # API restriction - can only use offsets up to 10000
             break
 
@@ -115,7 +119,7 @@ def download_asset(collection, asset):
         asset_ext = "bin"
 
     # Output file path
-    output_file = f"{OUTPUT_DIR}/{collection}/{asset_name}.{asset_ext}"
+    output_file = f"{OUTPUT_DIR}/{collection}/{asset_name}-${last_price}.{asset_ext}"
 
     if os.path.exists(output_file):
         # File already exists - don't re-download it
@@ -141,6 +145,9 @@ def parse_flag(flag):
     elif prop == "output-dir":
         global OUTPUT_DIR
         OUTPUT_DIR = flag[1]
+    elif prop == "number":
+        global NUMBER
+        NUMBER = int(flag[1])
     else:
         print(f"Unrecognized flag '{prop}'")
         exit()
@@ -153,8 +160,11 @@ def sig_handler(num, frame):
     finish()
 
 if __name__ == "__main__":
-    print("nft-rightclicker")
-    print("All your NFTs are mine now!")
+    # print("nft-rightclicker")
+    # print("All your NFTs are mine now!")
+    print("JohnC 2022")
+    print("https://johncheung.art")
+    print("fork from:")
     print("k0rnh0li0 2021")
     print("https://twitter.com/gr8_k0rnh0li0\n")
 
